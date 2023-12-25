@@ -1,0 +1,36 @@
+From 421c224d78a57ecc1526dfb9c4ebc3e9e58e4265 Mon Sep 17 00:00:00 2001
+From: Claudio Senatore <senatore@fs-net.de>
+Date: Wed, 8 Nov 2023 16:28:20 +0100
+Subject: [PATCH] change dependency version for object_detection
+
+---
+ research/object_detection/packages/tf2/setup.py | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/research/object_detection/packages/tf2/setup.py b/research/object_detection/packages/tf2/setup.py
+index aeb7ca54b..b1872cd93 100644
+--- a/research/object_detection/packages/tf2/setup.py
++++ b/research/object_detection/packages/tf2/setup.py
+@@ -18,8 +18,11 @@ REQUIRED_PACKAGES = [
+     'lvis',
+     'scipy',
+     'pandas',
+-    'tf-models-official>=2.5.1',
++    'tf-models-official==2.10.1',
++    'tensorflow==2.10.1',
+     'tensorflow_io',
++    'opencv-python==4.5.5.64',
++	'opencv-python-headless==4.5.5.64',
+     'keras',
+     'pyparsing==2.4.7',  # TODO(b/204103388)
+     'sacrebleu<=2.2.0'  # https://github.com/mjpost/sacrebleu/issues/209
+@@ -41,5 +44,5 @@ setup(
+         'scripts': os.path.join('slim', 'scripts'),
+     },
+     description='Tensorflow Object Detection Library',
+-    python_requires='>3.6',
++    python_requires='>3.9',
+ )
+-- 
+2.40.1
+

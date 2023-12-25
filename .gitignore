@@ -1,0 +1,7 @@
+workspace/datasets/
+workspace/training/*
+!workspace/training/place-training-models-here.txt
+workspace/exported_model/*
+!workspace/exported_model/export-models-here.txt
+python-env/*
+

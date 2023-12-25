@@ -1,0 +1,51 @@
+From 44912d7e2180043e9333e6baa0c87c2efabe1feb Mon Sep 17 00:00:00 2001
+From: Claudio Senatore <senatore@fs-net.de>
+Date: Wed, 8 Nov 2023 16:16:49 +0100
+Subject: [PATCH] edit runtime properties in model_main_tf2
+
+The following properties should be used as standard:
+
+- Checkpoint every 100 steps during training
+- No checkpoints should be deleted
+- No timeout for eval step
+---
+ research/object_detection/model_main_tf2.py | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/research/object_detection/model_main_tf2.py b/research/object_detection/model_main_tf2.py
+index 501e4de49..6fa9fdfe5 100644
+--- a/research/object_detection/model_main_tf2.py
++++ b/research/object_detection/model_main_tf2.py
+@@ -49,7 +49,7 @@ flags.DEFINE_string(
+     '`checkpoint_dir` is provided, this binary operates in eval-only mode, '
+     'writing resulting metrics to `model_dir`.')
+ 
+-flags.DEFINE_integer('eval_timeout', 3600, 'Number of seconds to wait for an'
++flags.DEFINE_integer('eval_timeout', None, 'Number of seconds to wait for an'
+                      'evaluation checkpoint before exiting.')
+ 
+ flags.DEFINE_bool('use_tpu', False, 'Whether the job is executing on a TPU.')
+@@ -62,7 +62,7 @@ flags.DEFINE_integer(
+     'MultiWorkerMirroredStrategy. When num_workers = 1 it uses '
+     'MirroredStrategy.')
+ flags.DEFINE_integer(
+-    'checkpoint_every_n', 1000, 'Integer defining how often we checkpoint.')
++    'checkpoint_every_n', 100, 'Integer defining how often we checkpoint afer n training steps.')
+ flags.DEFINE_boolean('record_summaries', True,
+                      ('Whether or not to record summaries defined by the model'
+                       ' or the training pipeline. This does not impact the'
+@@ -108,7 +108,10 @@ def main(unused_argv):
+           train_steps=FLAGS.num_train_steps,
+           use_tpu=FLAGS.use_tpu,
+           checkpoint_every_n=FLAGS.checkpoint_every_n,
+-          record_summaries=FLAGS.record_summaries)
++          record_summaries=FLAGS.record_summaries,
++          checkpoint_max_to_keep=30,
++          save_final_config=True,
++        )
+ 
+ if __name__ == '__main__':
+   tf.compat.v1.app.run()
+-- 
+2.40.1
+
