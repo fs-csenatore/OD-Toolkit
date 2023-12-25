@@ -1,0 +1,9 @@
+[submodule "models"]
+	path = models
+	url = https://github.com/tensorflow/models.git
+[submodule "addons/labelImg"]
+	path = addons/labelImg
+	url = https://github.com/HumanSignal/labelImg.git
+[submodule "addons/ethos-u-vela"]
+	path = addons/ethos-u-vela
+	url = https://github.com/nxp-imx/ethos-u-vela.git
